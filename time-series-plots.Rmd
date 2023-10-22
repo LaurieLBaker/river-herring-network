@@ -1,0 +1,71 @@
+```{r load_packages}
+# install.packages("tidyverse")
+library(tidyverse)
+library(readxl)
+library(ggplot2)
+```
+
+
+```{r read_in_the_data}
+# Daily Counts
+daily_count_23 <-read_excel("data/Maine Count Data/Daily counts/RH 2023 daily count data maine.xlsx")
+daily_count_22 <-read_excel("data/Maine Count Data/Daily counts/RH 2022 daily count data maine.xlsx")
+surry_count_21 <-read_excel("data/Maine Count Data/Daily counts/2021 Surry Alewife counts.xlsx")
+
+# Annual Counts 
+annual_count <-read_excel("data/Maine Count Data/Annual counts/1980-2022 Annual Fish Count Data .xlsx")
+```
+
+```{r clean_colnames_daily_counts}
+daily_count_22 <- daily_count_22 %>%
+  rename(
+    "pond" = "Pond", 
+    "municipality" = "Municipality", 
+    "latitude" = "Latitude", 
+    "longitude" = "Longitude", 
+    "date" = "Date", 
+    "daily_estimate" = "Daily Estimate", 
+    "cumulative" = "Cumulative"
+  )
+
+daily_count_23 <- daily_count_23 %>%
+  rename(
+    "pond" = "Pond", 
+    "municipality" = "Municipality", 
+    "latitude" = "Latitude", 
+    "longitude" = "Longitude", 
+    "date" = "Date", 
+    "daily_estimate" = "Daily Estimate", 
+    "cumulative" = "Cumulative",
+    "real_time" = "RealTime"
+    )
+
+surry_count_21 <- surry_count_21 %>%
+  rename(
+    "pond" = "Pond", 
+    "municipality" = "Municipality", 
+    "latitude" = "Latitude", 
+    "longitude" = "Longitude", 
+    "date" = "Date", 
+    "estimated_daily_total" = "Estimated daily total"
+    )
+
+
+```
+
+```{r daily_count_time-series_plots}
+daily_count_23 %>%
+  ggplot(aes(x = date, 
+             y = daily_estimate, 
+             color = municipality)) + 
+    geom_line() 
+
+daily_count_22 %>%
+  ggplot(aes(x = date, 
+             y = daily_estimate, 
+             color = municipality)) + 
+    geom_line() 
+  
+
+```
+
