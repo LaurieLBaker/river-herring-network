@@ -50,6 +50,19 @@ surry_count_21 <- surry_count_21 %>%
     "estimated_daily_total" = "Estimated daily total"
     )
 
+annual_count <- annual_count %>%
+  rename(
+    "river" = "River", 
+    "pond_or_dam" = "Pond or Dam", 
+    "municipality" = "Municipality",
+    "latitude" = "Latitude", 
+    "longitude" = "Longitude", 
+    "year" = "Year", 
+    "river_herring" = "River Herring", 
+    "start_date" = "Start date", 
+    "end_date" = "end date"
+    )
+
 
 ```
 
@@ -58,14 +71,40 @@ daily_count_23 %>%
   ggplot(aes(x = date, 
              y = daily_estimate, 
              color = municipality)) + 
-    geom_line() 
+    geom_line() +
+  labs(title = "2023 Daily Count Data", 
+       x = "date", 
+       y = "count")
 
 daily_count_22 %>%
   ggplot(aes(x = date, 
              y = daily_estimate, 
              color = municipality)) + 
-    geom_line() 
+    geom_line() + 
+    labs(title = "2022 Daily Count Data", 
+       x = "date", 
+       y = "count")
+ 
+surry_count_21 %>%
+  ggplot(aes(x = date, 
+             y = estimated_daily_total))+ 
+    geom_line() + 
+    labs(title = "Surry 20221 Count Data", 
+       x = "date", 
+       y = "count")
   
 
 ```
+```{r annual-count-plots}
+annual_count %>%
+  ggplot(aes(x = year, 
+             y = river_herring, 
+             color = municipality)) + 
+    geom_line() +
+  labs(title = "Annual Counts over Time", 
+       x = "year", 
+       y = "river_herring")
+
+```
+
 
